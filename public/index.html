@@ -227,7 +227,7 @@
 
     <div id="chat-container">
         <aside id="sidebar">
-            <h3>Usuarios en línea</h3>
+            <h3>Usuarios en línea <span id="contador-usuarios" style="font-size: 0.8em; opacity: 0.7;">(0)</span></h3>
             <ul id="user-list"></ul>
         </aside>
 
@@ -320,6 +320,12 @@
 
         // Actualizar lista de usuarios
         socket.on('actualizar_lista', (usuarios) => {
+            const userList = document.getElementById('user-list');
+            const contador = document.getElementById('contador-usuarios'); // <--- 1. Referencia al contador
+            
+            // 2. Actualizamos el número contando el tamaño del array (.length)
+            contador.textContent = `(${usuarios.length})`;
+
             userList.innerHTML = "";
             usuarios.forEach(user => {
                 const li = document.createElement('li');

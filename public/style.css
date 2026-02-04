@@ -1,0 +1,206 @@
+/* --- 1. ESTILOS GENERALES --- */
+        :root {
+            --bg-color: #1a1a1a;
+            --chat-bg: #2d2d2d;
+            --sidebar-bg: #202020;
+            --accent-color: #007bff; /* Azul moderno */
+            --my-msg-bg: #0056b3;
+            --other-msg-bg: #383838;
+            --text-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* --- 2. PANTALLA DE LOGIN (MODAL) --- */
+        #login-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .login-card {
+            background: var(--chat-bg);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .login-card h2 { margin-top: 0; color: white; }
+        
+        .login-input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid #444;
+            background: #1a1a1a;
+            color: white;
+            border-radius: 6px;
+            box-sizing: border-box; /* Importante para que el padding no rompa el ancho */
+            font-size: 16px;
+        }
+
+        .btn-enter {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-enter:hover { background: #004494; }
+
+        /* --- 3. INTERFAZ DEL CHAT --- */
+        #chat-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            opacity: 0; /* Oculto al inicio */
+            transition: opacity 0.5s;
+            pointer-events: none; /* No clickeable hasta loguearse */
+        }
+
+        /* Sidebar (Lista de Usuarios) */
+        #sidebar {
+            width: 260px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        #sidebar h3 { color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        
+        #user-list { list-style: none; padding: 0; overflow-y: auto; }
+        #user-list li {
+            padding: 10px;
+            margin-bottom: 5px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+        }
+        #user-list li::before {
+            content: '';
+            display: inline-block;
+            width: 10px; height: 10px;
+            background: #2ecc71; /* Punto verde */
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        /* Área Principal */
+        #main-chat {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+        }
+
+        #messages-area {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Burbujas de Mensaje */
+        .message {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 12px;
+            position: relative;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .message .user-name {
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-bottom: 4px;
+            display: block;
+            opacity: 0.7;
+        }
+
+        /* Estilo para MIS mensajes */
+        .message.mine {
+            align-self: flex-end;
+            background: var(--my-msg-bg);
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+
+        /* Estilo para OTROS mensajes */
+        .message.others {
+            align-self: flex-start;
+            background: var(--other-msg-bg);
+            color: #ddd;
+            border-bottom-left-radius: 2px;
+        }
+
+        .system-message {
+            align-self: center;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            color: #aaa;
+        }
+
+        /* Input Area */
+        #input-area {
+            padding: 20px;
+            background: var(--chat-bg);
+            display: flex;
+            gap: 10px;
+        }
+
+        #input-message {
+            flex-grow: 1;
+            padding: 12px;
+            border-radius: 25px;
+            border: 1px solid #444;
+            background: #202020;
+            color: white;
+            outline: none;
+        }
+
+        #btn-send {
+            padding: 0 25px;
+            border-radius: 25px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        #btn-send:hover { background: #0069d9; }
+
+        /* Responsive para móviles */
+        @media (max-width: 600px) {
+            #sidebar { display: none; } /* Ocultar lista usuarios en celular */
+        }

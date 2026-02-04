@@ -32,7 +32,6 @@ io.on('connection', (socket) => {
     });
 });
 
-// IMPORTANTE: Usar el puerto que asigne la nube (process.env.PORT) o el 3000 si es local
 const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
     console.log(`Servidor corriendo en puerto ${PORT}`);
